@@ -1,11 +1,9 @@
 void setup() {
   size(1000, 600);
 }
-
 void draw() {
   background(0, 255, 255);
 
-  
   pushMatrix();
   strokeWeight(5);
   fill (255,0,0);
