@@ -18,8 +18,7 @@ int circleRandomx= 233;
 int circleRandomy=552;
 int radioRandom=70;
 boolean start=true;
-int valorRandom=floor(random(2));
-int[][] matriz_manual;
+int [][] matriz_manual;
 
 
 int countVecinos(int[][]matriz,int x,int y){
@@ -45,17 +44,16 @@ void setup(){
     for (var i=0;i<filas; i++){
       for (var j=0;j<columnas; j++){
           matriz[i][j]=floor(random(2));
-        
       }
-    }
-  }
+        
 
+    }
+}
 void draw(){
   frameRate(velocidad);
   background(0);
     
   ////////celulas iniciales///////
-
     for (var i = 0; i < filas; i++) {
       for (var j = 0; j < columnas; j++) {
         int r=(int)random(255);int g=(int)random(85,170);int b=(int)random(255);
@@ -66,8 +64,11 @@ void draw(){
           stroke (133, 146, 158);
           square(x,y, 20);
         }
+
+            
       }
-    }
+    
+  }
 
   //////nuevas generaciones//////////
     if (PauseButton==true){
@@ -84,10 +85,10 @@ void draw(){
             else {
               generaciones[i][j]=estado;
             }  
-        }  
+        }
       }
   matriz=generaciones;
-    
+  
   }
   ///cuadricula/////
   stroke(133, 146, 158);
@@ -119,7 +120,10 @@ void draw(){
   ///boton aleatorio/////
   fill (255);
   circle (circleRandomx,circleRandomy,radioRandom);
-  fill (0);
+  if (start==true){
+    fill (0);}
+    else {
+      fill (82,82,82);}
   square (212,532,40);
 
 
@@ -155,16 +159,41 @@ void mousePressed(){
     } else{
     PauseButton=false;}
   }
+  //////aleatorio/////
   float RandomB =dist(mouseX, mouseY, circleRandomx, circleRandomy);
   if (RandomB < radioRandom/2){
     if(start==true){
-      start=false;
-    } else{
-      start=true;}
+        start=false;
+        for (var i=0;i<filas; i++){
+          for (var j=0;j<columnas; j++){
+            matriz[i][j]=0;
+          }
+        }
+
+            
+          
+    } else if (start==false){
+      start=true;
+        for (var i=0;i<filas; i++){
+          for (var j=0;j<columnas; j++){
+            matriz[i][j]=floor(random(2));
+          }
+        }
+      }
   }
 }
-
-       
+void mouseDragged(){
+  if (start==false){
+    if (matriz[mouseX/20][mouseY/20]==1){
+      matriz[mouseX/20][mouseY/20]=0;
+    }else if (matriz[mouseX/20][mouseY/20]==0){
+      matriz[mouseX/20][mouseY/20]=1;
+    }
+  }
+}
       
-
-      
+/*                            referencias
+  +++ https://processing.org/reference/
+  +++ https://www.youtube.com/watch?v=cWWNBnfSv6Y&ab_channel=JesusAlvaro
+  +++ https://www.youtube.com/playlist?list=PLtyMmy0eKyqFsLPesmz7y4EznkZFJrGuu
+*/
